@@ -7,6 +7,8 @@
     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
     crossorigin=""/> 
 
+    <link rel="stylesheet" href="https://cdn.metroui.org.ua/v4.3.2/css/metro-all.min.css">
+
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin="">
@@ -20,16 +22,6 @@
         height: 600px;
         width: 600px; 
       }
-      button {
-          background-color: #f44336; /* Green */
-          border: none;
-          color: white;
-          padding: 15px 32px;
-          text-align: center;
-          text-decoration: none;
-          display: inline-block;
-          font-size: 16px;
-      }
     </style>
 
     <title>El Chuchin es gei</title>
@@ -40,14 +32,14 @@
     <FONT FACE="Impact" size="30">
       <MARQUEE BGCOLOR="#FFFF00" scrollamount="20">El Chuchin es gei</MARQUEE>
     </FONT>
-    <audio controls autoplay loop>
+    <audio loop id="myAudio">
       <source src="taquicardio.mp3" type="audio/mp3">
     </audio>
     <br>
     <br>
 <br>
 
-  <button onclick="search()">¿Dónde esta el homosexual del Chuchin?</button>
+  <button onclick="search()" class="button alert">¿Dónde esta el homosexual del Chuchin?</button>
 
   <p>
   <!--latitud: <span id="lat"></span>° <br/>
@@ -60,6 +52,7 @@
 
   <script>
     // Making a map and tiles
+    const audio = document.getElementById("myAudio");
     let inicio = 1;
     let intervalo;
     const mymap = L.map('issMap').setView([0,0], 1);
@@ -96,6 +89,7 @@
 
     //getISS();
     function search(){
+      audio.play();
       intervalo = setInterval(getISS, 1000);
     }
 
