@@ -1,21 +1,109 @@
 <!DOCTYPE html>
 <html>
 
-   <head>
-<style>
-      body { background-image:url('wallpaper.gif'); background-repeat:repeat; }
-  </style>   
- <title>HTML base Tag</title>
-   </head>
+  <head>
 
-   <body>
-      <FONT FACE="Impact" size="30">
-         <MARQUEE BGCOLOR="#FFFF00" scrollamount="20">El Chuchin es gei</MARQUEE>
-      </FONT>
-      <audio autoplay loop  id="playAudio">
-          <source src="taquicardio.mp3">
-      </audio>
-   </body>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/> 
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin="">
+    </script>
+    
+    <style>
+      body { 
+        background: url('https://media1.tenor.com/images/c79fbc354a42faadb4ed79f69def4ed4/tenor.gif?itemid=15973382') repeat 0 0;  
+      }
+      #issMap {
+        height: 600px;
+        width: 600px; 
+      }
+      button {
+          background-color: #f44336; /* Green */
+          border: none;
+          color: white;
+          padding: 15px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+      }
+    </style>
+
+    <title>El Chuchin es gei</title>
+  </head>
+
+  <body>
+  <center>    
+    <FONT FACE="Impact" size="30">
+      <MARQUEE BGCOLOR="#FFFF00" scrollamount="20">El Chuchin es gei</MARQUEE>
+    </FONT>
+    <audio controls autoplay loop>
+      <source src="taquicardio.mp3" type="audio/mp3">
+    </audio>
+    <br>
+    <br>
+<br>
+
+  <button onclick="search()">¿Dónde esta el homosexual del Chuchin?</button>
+
+  <p>
+  <!--latitud: <span id="lat"></span>° <br/>
+    longitud: <span id="lon"></span>°-->
+    El que lea esto es fan de TLoU2
+  </p>  
+
+  <div id="issMap"></div>
+  </center>
+
+  <script>
+    // Making a map and tiles
+    let inicio = 1;
+    let intervalo;
+    const mymap = L.map('issMap').setView([0,0], 1);
+    const attribution =
+       '&copy; <a href="https://www.openstreetmap.org/copyrigth">OpenStreetMap</a> contributors';
+
+    const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    const tiles = L.tileLayer(tileUrl,{attribution} );
+    tiles.addTo(mymap);
+
+    const api_url = 'https://api.wheretheiss.at/v1/satellites/25544';
+    
+    let firstTime = true;
+
+    async function getISS() {
+      const latitude = 26.42025;
+      const longitude = -108.62076;
+      inicio = inicio + 2;
+      console.log(inicio);
+      // L.marker([latitude, longitude]).addTo(mymap);
+      const marker = L.marker([latitude,longitude]).addTo(mymap);
+      marker.setLatLng([latitude, longitude]);
+      if( inicio < 20) {
+        mymap.setView([latitude, longitude], inicio);
+        firstTime = false
+      }
+      else {
+        clearInterval(intervalo);
+      }
+  
+     // document.getElementById('lat').textContent = latitude.toFixed(2);
+     // document.getElementById('lon').textContent = longitude.toFixed(2);
+    }
+
+    //getISS();
+    function search(){
+      intervalo = setInterval(getISS, 1000);
+    }
+
+  </script>
+
+
+    
+  </body>
 
 </html>
 
